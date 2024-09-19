@@ -7,6 +7,11 @@ on:
      - main
      - 'feature/*'
 
+env:
+  MONGO_USERNAME: ${{ vars.MONGO_USERNAME }}
+  MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
+  MONGO_URI: 'mongodb+srv://${env.MONGO_USERNAME}:${env.MONGO_PASSWORD}@cluster0.owu3mrq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+
 jobs:
   unit-testing:
     name: Unit-testing

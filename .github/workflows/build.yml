@@ -42,3 +42,36 @@ jobs:
         with:
           name: Mocha-test-result-${{ matrix.nodejs_version }}-${{ matrix.operating_system }}
           path: test-results.xml
+
+
+  code-coverage:
+    name: Code coverage
+    strategy:
+      matrix:
+        nodejs_version: [18,20,22]
+        operating_system: [ubuntu-latest,macos-latest]
+        exclude:
+         - nodejs_version: 18
+           operating_system: macos-latest
+      
+    runs-on: ${{ matrix.operating_system }}
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Use Node.js - ${{ matrix.nodejs_version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.nodejs_version }}
+          
+      - name: Install dependencies
+        run: npm install
+
+      - name: Code coverage
+        run: npm run coverage
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Code-coverage-result-${{ matrix.nodejs_version }}-${{ matrix.operating_system }}
+          path: coverage
+          retention-days: 5
+    

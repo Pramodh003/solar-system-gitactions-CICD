@@ -118,7 +118,7 @@ jobs:
      - name: Docker image testing
        run: |
           docker images
-          
+          docker pull ${{ vars.DOCKERHUB_USERNAME }}/solar-sytem:latest
           docker run --name solar-system-app -d \
               -p 3000:3000 \
               -e MONGO_URI=$MONGO_URI \

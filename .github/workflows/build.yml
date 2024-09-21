@@ -32,14 +32,11 @@ jobs:
         with:
           node-version: ${{ matrix.nodejs_version }}
 
-      - name: Cache node modules
-        uses: actions/cache@v3
+      - name: Composite actions Cache node modules
+        uses: ./.github/custom-actions/npm-actions
         with:
-          path: node_modules
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
-          
-      - name: Install dependencies
-        run: npm install
+          path-of-folder: 
+        
 
       - name: Unit testing
         id: nodejs-unit-testing
